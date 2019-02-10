@@ -8,6 +8,7 @@ devise varchar(10),
 allocCodes integer,
 PRIMARY KEY(id)
 );
+
 create table devise(
 id integer not null auto_increment,
 identreprise integer,
@@ -16,6 +17,7 @@ intitule varchar(10),
 valeur double,
 PRIMARY KEY (id)
 );
+alter table add unique constraint(identreprise,intitule);
 create table journal(
 id integer not null auto_increment,
 idEntreprise integer not null,
