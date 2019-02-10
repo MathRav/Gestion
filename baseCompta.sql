@@ -17,7 +17,7 @@ intitule varchar(10),
 valeur double,
 PRIMARY KEY (id)
 );
-alter table add unique constraint(identreprise,intitule);
+alter table devise add constraint unique(identreprise,intitule);
 create table journal(
 id integer not null auto_increment,
 idEntreprise integer not null,
