@@ -7,7 +7,7 @@ code integer(3),
 devise varchar(10),
 allocCodes integer,
 PRIMARY KEY(id)
-);
+)Engine=InnoDB;
 insert into entreprise values(1,'SOBA','1234',110,'MGA',5);
 
 create table devise(
@@ -16,7 +16,7 @@ identreprise integer,
 intitule varchar(10),
 valeur double,
 PRIMARY KEY (id)
-);
+)Engine=InnoDB;
 alter table devise add constraint unique(identreprise,intitule);
 
 insert into devise values(1,1,'MGA',1);
@@ -27,7 +27,7 @@ idEntreprise integer not null,
 code varchar(10),
 intitule varchar(50),
 PRIMARY KEY (id)
-);
+)Engine=InnoDB;
 
 insert into journal values(1,1,'AC','ACHAT');
 
@@ -37,7 +37,7 @@ idEntreprise integer not null,
 code varchar(10),
 intitule varchar(50),
 PRIMARY KEY (id)
-);
+)Engine=InnoDB;
 insert into plancomptable values(1,1,'40100','CLIENT LOCAL');
 
 create table plantiers(
@@ -48,7 +48,7 @@ intitule varchar(50),
 type varchar(50),
 comptecollectif varchar(10),
 PRIMARY KEY (id)
-);
+)Engine=InnoDB;
 
 insert into plantiers values(1,1,'ANDRY','CLT:ANDRY','CLIENT','40100');
 
@@ -57,7 +57,7 @@ create table types(
 id integer not null auto_increment,
 nom varchar(50),
 PRIMARY KEY(id)
-);
+)Engine=InnoDB;
 
 insert into types values(1,'CLIENT');
 
@@ -77,14 +77,14 @@ id_compte integer,
 id_Journal integer,
 id_tiers integer,
 PRIMARY KEY(id)
-);
+)Engine=InnoDB;
 create table exercice(
 id integer not null auto_increment,
 identreprise integer not null,
 annee integer not null,
 isClotured boolean,PRIMARY KEY(id),
 FOREIGN KEY (identreprise) REFERENCES entreprise(id)
-);
+)Engine=InnoDB;
 
 insert into mvt values(1,1,'2019-02-13','FA0001','1','','FACTURE CLIENT 1',null,100000,0,1,1,1,1);
 insert into mvt values(2,1,'2019-02-13','FA0001','1','','FACTURE CLIENT 1',null,0,100000,1,1,1,1);
