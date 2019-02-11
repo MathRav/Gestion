@@ -45,10 +45,7 @@
                               <hr>
                               <form action="#" method="post" novalidate="novalidate" th:action="@{/planComptable/ajouter}" th:object="${vao}">
                                 <input name="id" th:field="*{id}" type="hidden">
-                                  <div class="form-group">
-                                    <label for="idEntreprise" class="control-label mb-1">idEntreprise</label>
-                                      <input name="idEntreprise" th:field="*{idEntreprise}" type="number" class="form-control" aria-required="true" aria-invalid="false" >
-                                  </div>
+                                      <input name="idEntreprise" th:field="*{idEntreprise}" type="hidden" class="form-control" aria-required="true" aria-invalid="false" >
                                   <div class="form-group">
                                       <label for="code" class="control-label mb-1">Code</label>
                                       <input name="code" type="text" class="form-control" th:field="*{code}"  >

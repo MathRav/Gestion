@@ -1,0 +1,53 @@
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+
+  <script src="/vendor/bootstrap-4.1/bootstrap.min.js"></script>
+  <link href="/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+<title>Grands Livres</title>
+</head>
+<body>
+  <div class="jumbotron text-center">
+    <h1>Grands livres</h1>
+  </div>
+  <div class="container">
+  <th:block th:each="lray : ${listetri}">
+  <div class="row">
+    <p th:text="'Compte '+${#strings.substring(lray[0].mt.codePlanComptable,0,1)}"></p>
+  </div>
+  <div class="row">
+  <table class="table table-striped" >
+      <tr>
+          <th>Date</th>
+          <th>Journal</th>
+          <th>Reference</th>
+          <th>Libelle</th>
+          <th>Debit</th>
+          <th>Credit</th>
+          <th>Solde cumulative</th>
+      </tr>
+      <th:block th:each="ray : ${lray}" >
+        <tr>
+          <td th:text="${ray.mt.dateMvt}"></td>
+          <td th:text="${ray.mt.codeJournal}"></td>
+          <td th:text="${ray.mt.reference}"></td>
+          <td th:text="${ray.mt.libelle}"></td>
+          <td th:text="${ray.mt.debit}"></td>
+          <td th:text="${ray.mt.credit}"></td>
+          <td th:text="${ray.soldeCum}">0</td>
+        </tr>
+      </th:block>
+        <tr>
+          <td> Total</td>
+          <td ></td>
+          <td ></td>
+          <td ></td>
+          <td th:text="${#aggregates.sum(lray.![mt.debit])}"></td>
+          <td th:text="${#aggregates.sum(lray.![mt.credit])}"></td>
+          <td th:text="${#aggregates.sum(lray.![mt.debit])-#aggregates.sum(lray.![mt.credit])}"></td>
+        </tr>
+  </table>
+  </div>
+</th:block>
+</div>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="au theme template">
+    <meta name="author" content="Hau Nguyen">
+    <meta name="keywords" content="au theme template">
+
+    <div th:replace="elements :: cssambony"></div>
+    <!-- Title Page-->
+    <title>Comptes tiers</title>
+
+
+
+</head>
+
+<body class="animsition">
+<div class="page-wrapper">
+    <div th:replace="elements :: menu"></div>
+    <!-- PAGE CONTAINER-->
+    <div class="page-container2">
+        <!-- HEADER DESKTOP-->
+        <div th:replace="elements :: header"></div>
+        <div th:replace="elements :: vitaheader"></div>
+
+        <!-- BREADCRUMB-->
+        <div th:replace="elements :: mofo"></div>
+
+
+        <!-- Contenu <section>-->
+
+        <section>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-header">Entreprise</div>
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <h3 class="text-center title-2">Ajouter une Entreprise</h3>
+                                </div>
+                                <hr>
+                                <form  method="post" action="/Entreprise/Creer">
+                                    <div class="form-group">
+                                        <label for="nom" class="control-label mb-1">Nom</label>
+                                        <input id="nom" name="nom" type="text" class="form-control" aria-required="true" aria-invalid="false" >
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="adresse" class="control-label mb-1">Adresse</label>
+                                        <input id="adresse" name="adresse" type="text" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="code" class="control-label mb-1">Code</label>
+                                        <input id="code" name="code" type="number" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="devise" class="control-label mb-1">devise</label>
+                                        <input id="devise" name="devise" type="devise" class="form-control" >
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="allocCodes" class="control-label mb-1">Code d'allocation</label>
+                                        <input id="allocCodes" name="allocCodes" type="number" class="form-control" >
+                                    </div>
+                                    <div class="form-group">
+                                        <button  type="submit" class="btn btn-lg btn-info btn-block">
+                                                Creation
+                                        </button>
+                                        <p th:if="${Message!=null}" th:text="${Message}" class="alert">
+                                        </p>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="table-responsive table--no-card m-b-30">
+                            <table class="table table-borderless table-striped table-earning">
+                                <thead>
+                                <tr>
+                                    <th>nom</th>
+                                    <th>adresse</th>
+                                    <th>code</th>
+                                    <th>devise</th>
+                                    <th>code d'allocation</th>
+                                    <th>&nbsp;</th>
+                                    <th>&nbsp;</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <th:block th:each="user : ${liste}">
+                                    <tr>
+                                        <td th:text="${user.nom}"></td>
+                                        <td th:text="${user.adresse}"></td>
+                                        <td th:text="${user.code}"></td>
+                                        <td th:text="${user.devise}"></td>
+                                        <td th:text="${user.alloccodes}"></td>
+                                        <td><a th:href="@{'/Entreprise/CreationDevise/'+${user.id}}"><button class="btn btn-outline-primary">Ajouter devise</button></a></td>
+                                        <td><a th:href="@{'/Entreprise/CreationExercice/'+${user.id}}"><button class="btn btn-outline-primary">Ajouter Exercice</button></a></td>
+                                    </tr>
+                                </th:block>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="copyright">
+                            <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- END PAGE CONTAINER-->
+    </div>
+
+</div>
+<div th:replace="elements :: cssambany"></div>
+</body>
+
+</html>
+<!-- end document-->
