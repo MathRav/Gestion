@@ -48,6 +48,33 @@
   </table>
   </div>
 </th:block>
+
+<div class="row">
+  <p th:text="Total"></p>
+</div>
+<div class="row">
+<table class="table table-striped" >
+    <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th>Debit</th>
+        <th>Credit</th>
+        <th>Solde</th>
+    </tr>
+
+      <tr>
+        <td ></td>
+        <td ></td>
+        <td ></td>
+        <td ></td>
+        <td th:text="${totalist[0]}"></td>
+        <td th:text="${totalist[1]}"></td>
+        <td th:text="${totalist[2]}">0</td>
+      </tr>
+</table>
+</div>
 </div>
 </body>
 </html>
