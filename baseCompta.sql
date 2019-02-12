@@ -51,11 +51,12 @@ PRIMARY KEY(id)
 
 create table mvt(
 id integer not null auto_increment,
-codeJournal integer,
+id_Journal integer,
 date_Mvt date,
 reference varchar(10),
-numerocompte varchar(10),
-numerotiers varchar(10),
+id_compte varchar(10),
+id_tiers varchar(10),
+id_exercice varchar(50),
 libelle varchar(50),
 echeance date,
 debit double,

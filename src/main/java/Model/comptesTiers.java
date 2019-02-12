@@ -61,9 +61,16 @@ public class comptesTiers implements Serializable{
     return type;
   }
 
+	public void setType(String type){
+		this.type=type;
+	}
+
   public void setComptecollectif(String passportNumber) {
     this.comptecollectif = passportNumber;
   }
+	public String getComptecollectif(){
+		return comptecollectif;
+	}
 
 	@Override
 	public String toString() {
