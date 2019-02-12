@@ -39,7 +39,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
-<<<<<<< HEAD
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa -->
 <dependency>
     <groupId>org.springframework.boot</groupId>
@@ -47,16 +46,6 @@
     <version>2.1.2.RELEASE</version>
 </dependency>
 
-=======
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
->>>>>>> aa22baeaafc76ff20f88bd9220ff8a453bd31797
     </dependencies>
     <build>
         <plugins>
