@@ -69,5 +69,6 @@ create table exercice(
 id_entreprise integer not null,
 annee integer not null,
 isClotured boolean,
-FOREIGN KEY (id_entreprise) REFERENCES entreprise(id_entreprise),
+PRIMARY KEY (id_entreprise,annee),
+FOREIGN KEY (id_entreprise) REFERENCES entreprise(id_entreprise)
 );
