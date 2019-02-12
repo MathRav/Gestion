@@ -44,29 +44,30 @@
                               </div>
                               <hr>
                               <form action="#" method="post" novalidate="novalidate" th:action="@{/comptesTiers/ajouter}" th:object="${vao}">
+                                <input name="id" th:field="*{id}" type="hidden">
                                   <div class="form-group">
                                     <label for="idEntreprise" class="control-label mb-1">idEntreprise</label>
-                                      <input name="idEntreprise" th:field="*{idEntreprise}" type="number" class="form-control" aria-required="true" aria-invalid="false" value="1">
+                                      <input name="idEntreprise" th:field="*{idEntreprise}" type="number" class="form-control" aria-required="true" aria-invalid="false" >
                                   </div>
                                   <div class="form-group">
                                       <label for="numero" class="control-label mb-1">Numero</label>
-                                      <input name="numero" type="text" class="form-control" th:field="*{numero}" value="" >
+                                      <input name="numero" type="text" class="form-control" th:field="*{numero}"  >
                                   </div>
                                   <div class="form-group">
                                     <label for="intitule" class="control-label mb-1">Intitule</label>
-                                      <input name="intitule" type="text" class="form-control" th:field="*{intitule}" value="" >
+                                      <input name="intitule" type="text" class="form-control" th:field="*{intitule}" >
                                   </div>
                                   <div class="form-group">
                                     <label for="type" class="control-label mb-1">Type</label>
-                                    <input name="type" type="text" class="form-control" th:field="*{type}" value="" >
+                                    <input name="type" type="text" class="form-control" th:field="*{type}" >
                                   </div>
                                   <div class="form-group">
                                     <label for="comptecollectif" class="control-label mb-1">Compte collectif</label>
-                                      <input name="comptecollectif" type="text" class="form-control" th:field="*{comptecollectif}" value="" >
+                                      <input name="comptecollectif" type="text" class="form-control" th:field="*{comptecollectif}" >
                                   </div>
                                   <div>
                                       <button  type="submit" class="btn btn-lg btn-info btn-block">
-                                          <span >Ajouter</span>
+                                          <span th:text="${destination}"></span>
                                       </button>
                                   </div>
                               </form>
@@ -89,6 +90,7 @@
                                       <th>Intitule</th>
                                       <th>Type</th>
                                       <th>Compte collectif</th>
+                                      <th>Modifier</th>
                                       <th>Supprimer</th>
                                   </tr>
                               </thead>
@@ -100,6 +102,7 @@
                                       <td th:text="${user.intitule}"></td>
                                       <td th:text="${user.type}"></td>
                                       <td th:text="${user.comptecollectif}"></td>
+                                      <td ><a th:href="@{/comptesTiers/pageModif.html?(id=${user.id})}">Modifier</a></td>
                                       <td ><a th:href="@{/comptesTiers/supprimer?(id=${user.id})}">Supprimer</a></td>
                                   </tr>
                                 </th:block>
