@@ -11,6 +11,7 @@ import java.lang.Iterable;
 import java.util.Iterator;
 import org.springframework.web.servlet.ModelAndView;
 import java.util.ArrayList;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
 
@@ -46,7 +47,13 @@ public class CompteTiersController {
     @PostMapping("/ajouter")
     public String addComptesTiers(@ModelAttribute comptesTiers cpt ){
         this.cptdao.save(cpt);
-        return "redirect: /comptesTiers/page.html";
+        return "redirect:page.html";
+    }
+    @GetMapping("/supprimer")
+    public String supprComptesTiers(@RequestParam("id") Long id){
+      comptesTiers cpt=this.cptdao.findById(id).get();
+      if(cpt!=null) this.cptdao.delete(cpt);
+      return "redirect:page.html";
     }
 
 }
