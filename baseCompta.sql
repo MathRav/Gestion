@@ -64,3 +64,10 @@ intitule_devise varchar(10),
 valeur double,
 PRIMARY KEY ()
 );
+
+create table exercice(
+id_entreprise integer not null,
+annee integer not null,
+isClotured boolean,
+FOREIGN KEY (id_entreprise) REFERENCES entreprise(id_entreprise),
+);
