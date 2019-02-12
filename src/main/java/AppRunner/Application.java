@@ -9,13 +9,19 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
+
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"Controllers","DAO","Model","Security"} )
 @EnableJpaRepositories(basePackages={"DAO"})
 @EntityScan( basePackages = {"Model"} )
+@EnableTransactionManagement
 public class Application {
     @Value("${spring.thymeleaf.prefix}")
     static String appName;
@@ -23,7 +29,22 @@ public class Application {
         SpringApplication.run(Application.class, args);
         System.out.println(appName);
     }
+    /*
 
+    @Bean
+      public LocalContainerEntityManagerFactoryBean getEntityManagerFactory() throws SQLException{
+        LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
+        //...
+        return factory;
+      }
 
+      @Bean
+      public PlatformTransactionManager transactionManager(){
+          JpaTransactionManager transactionManager  = new JpaTransactionManager();
+          transactionManager.setEntityManagerFactory(
+          entityManagerFactoryBean().getObject() );
+          return transactionManager;
+      }
+*/
 
 }
