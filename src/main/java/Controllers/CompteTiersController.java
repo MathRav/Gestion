@@ -12,18 +12,23 @@ import java.util.Iterator;
 import org.springframework.web.servlet.ModelAndView;
 import java.util.ArrayList;
 
+import org.springframework.web.bind.annotation.ModelAttribute;
+
 @RequestMapping("/comptesTiers")
 @Controller
 public class CompteTiersController {
   @Autowired
   comptesTiersDao cptdao;
 
-    @GetMapping("/")
+    @GetMapping("/page.html")
     public ModelAndView comptesTiers(){
         ModelAndView md=new ModelAndView("pageCompteTiers");
         md.addObject("listeTiers",getComptesTiers());
+        md.addObject("vao",new comptesTiers());
         return md;
     }
+
+
 
     public ArrayList<comptesTiers> getComptesTiers(){
       Iterable<comptesTiers> liste=this.cptdao.findAll(); //test
@@ -36,6 +41,12 @@ public class CompteTiersController {
         vliste.add(tp);
       }
       return vliste;
+    }
+
+    @PostMapping("/ajouter")
+    public String addComptesTiers(@ModelAttribute comptesTiers cpt ){
+        this.cptdao.save(cpt);
+        return "redirect: /comptesTiers/page.html";
     }
 
 }
