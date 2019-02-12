@@ -28,6 +28,7 @@ public class AccueilController {
         ModelAndView md=new ModelAndView("pageCompteTiers");
         Iterable<comptesTiers> liste=this.cptdao.findAll(); //test
         Iterator itr=liste.iterator();
+        System.out.println("hiaffiche compte zao ");
         while(itr.hasNext()){
           System.out.println(itr.next());
         }
