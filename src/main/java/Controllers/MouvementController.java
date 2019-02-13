@@ -73,6 +73,7 @@ public class MouvementController {
         md.addObject("mouvements",getMouvements());
         md.addObject("vao",plc);
         md.addObject("destination","modifier");
+        //this.cptdao.saveAll(itrbl);
         return md;
     }
 }
