@@ -8,33 +8,37 @@ devise varchar(10),
 allocCodes integer,
 PRIMARY KEY(id)
 );
+insert into entreprise values(1,'SOBA','1234',110,'MGA',5);
 
 create table devise(
 id integer not null auto_increment,
 identreprise integer,
-foreign key(identreprise) references entreprise(id),
 intitule varchar(10),
 valeur double,
 PRIMARY KEY (id)
 );
 alter table devise add constraint unique(identreprise,intitule);
+
+insert into devise values(1,1,'MGA',1);
+
 create table journal(
 id integer not null auto_increment,
 idEntreprise integer not null,
 code varchar(10),
 intitule varchar(50),
-PRIMARY KEY (id),
-FOREIGN KEY (idEntreprise) REFERENCES entreprise(id)
+PRIMARY KEY (id)
 );
+
+insert into journal values(1,1,'AC','ACHAT');
 
 create table plancomptable(
 id integer not null auto_increment,
 idEntreprise integer not null,
 code varchar(10),
 intitule varchar(50),
-PRIMARY KEY (id),
-FOREIGN KEY (idEntreprise) REFERENCES entreprise(id)
+PRIMARY KEY (id)
 );
+insert into plancomptable values(1,1,'40100','CLIENT LOCAL');
 
 create table plantiers(
 id integer not null auto_increment,
@@ -43,15 +47,19 @@ numero varchar(50),
 intitule varchar(50),
 type varchar(50),
 comptecollectif varchar(10),
-PRIMARY KEY (id),
-FOREIGN KEY (idEntreprise) REFERENCES entreprise(id)
+PRIMARY KEY (id)
 );
+
+insert into plantiers values(1,1,'ANDRY','CLT:ANDRY','CLIENT','40100');
+
 
 create table types(
 id integer not null auto_increment,
 nom varchar(50),
 PRIMARY KEY(id)
 );
+
+insert into types values(1,'CLIENT');
 
 create table mvt(
 id integer not null auto_increment,
@@ -67,12 +75,28 @@ credit double,
 PRIMARY KEY(id)
 );
 
-create view MvtJournalPlanComptable as
-select id,mvt.codeJournal as codeJOurnal,journal.intitule as intituleJournal,mvt.numerocompte as numerocompte,plancomptable.intitule as intitulePlanComptable,mvt.numerotiers as numerotiers,plantiers.intitule as intitulePlantiers,date_Mvt,reference,libelle,echeance,debit,credit
+insert into mvt(1,1,'2019-02-13','FA0001','1','','FACTURE CLIENT 1',null,100000,0);
+
+create view MvtJournal as
+select mvt.id,mvt.codeJournal as codeJournal,journal.intitule as intituleJournal,mvt.numerocompte as numerocompte,mvt.numerotiers as numerotiers,date_Mvt,reference,libelle,echeance,debit,credit
 from mvt 
 join journal on mvt.codeJournal=journal.id
-join plancomptable on mvt.numerocompte=plancomptable.id
-join plantiers on mvt.numerotiers=plantiers.numero
+
+create view MvtJournalPlanComptable as
+select mvt.id,mvt.codeJournal as codeJournal,journal.intitule as intituleJournal,mvt.numerocompte as numerocompte,plancomptable.intitule as intitulePlanComptable,mvt.numerotiers as numerotiers,date_Mvt,reference,libelle,echeance,debit,credit
+from mvt 
+join journal on mvt.codeJournal=journal.id
+join plancomptable on mvt.numerocompte=plancomptable.code
+
+create view MvtJournalPlanComptableTiers as
+select mvt.id,mvt.codeJournal as codeJournal,journal.intitule as intituleJournal,mvt.numerocompte as numerocompte,plancomptable.intitule as intitulePlanComptable,mvt.numerotiers as numerotiers,plantiers.intitule as intitulePlantiers,date_Mvt,reference,libelle,echeance,debit,credit
+from mvt 
+join journal on mvt.codeJournal=journal.id
+join plancomptable on mvt.numerocompte=plancomptable.code
+left join plantiers on mvt.numerotiers=plantiers.id
+
+
+
 
 create table exercice(
 id integer not null auto_increment,
@@ -81,3 +105,5 @@ annee integer not null,
 isClotured boolean,PRIMARY KEY(id),
 FOREIGN KEY (identreprise) REFERENCES entreprise(id)
 );
+
+insert into exercice values(1,1,2019,false);
