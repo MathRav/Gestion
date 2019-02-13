@@ -68,7 +68,7 @@ PRIMARY KEY(id)
 );
 
 create view MvtJournalPlanComptable as
-select id,mvt.codeJournal as codeJOurnal,journal.intitule as intituleJournal,mvt.numerocompte as numerocompte,plancomptable.intitule as intitulePlanComptable,mvt.numerotiers as numerotiers,plantiers.intitule as intitulePlantiers,date_Mvt,reference,libelle,echeance,debit,credit
+select mvt.id as id,mvt.codeJournal as codeJOurnal,journal.intitule as intituleJournal,mvt.numerocompte as numerocompte,plancomptable.intitule as intitulePlanComptable,mvt.numerotiers as numerotiers,plantiers.intitule as intitulePlantiers,date_Mvt,reference,libelle,echeance,debit,credit
 from mvt 
 join journal on mvt.codeJournal=journal.id
 join plancomptable on mvt.numerocompte=plancomptable.id
