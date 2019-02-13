@@ -93,6 +93,7 @@
                                       <button  type="submit" class="btn btn-lg btn-info btn-block">
                                           <span th:text="${destination}"></span>
                                       </button>
+                                      
                                   </div>
                               </form>
                           </div>
@@ -138,7 +139,19 @@
                                 </th:block>
                               </tbody>
                           </table>
+                          <br>
+                          <div class="row">
+                              <div class="col-md-4"></div>
+                              <div class="col-md-4">
+                                  <a th:href="@{/mouvements/valider.html}"><button  type="submit" class="btn btn-lg btn-info btn-block">
+                                            Valider
+                                      </button>
+                                    </a>
+                              </div>
+                          </div>
+                          <br>
                       </div>
+                       
                     </div>
                   </div>
               </div>

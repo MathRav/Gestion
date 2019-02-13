@@ -9,6 +9,7 @@ import Model.Mouvement;
 import Model.planComptable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -16,5 +17,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface MouvementDao extends JpaRepository<Mouvement, Long>{
+
+    @Transactional
+    @Override
+    public <S extends Mouvement> S save(S s);
     
 }

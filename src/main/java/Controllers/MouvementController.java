@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Controllers;
+import DAO.CompteTiersRepo;
 import DAO.MouvementDao;
 import DAO.comptesTiersDao;
 import DAO.planComptableDao;
@@ -19,6 +20,10 @@ import java.lang.Iterable;
 import java.util.Iterator;
 import org.springframework.web.servlet.ModelAndView;
 import java.util.ArrayList;
+import java.util.List;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -28,7 +33,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 public class MouvementController {
     @Autowired
     MouvementDao cptdao;
-
+    @Autowired
+    comptesTiersDao tiersdao;
+    @Autowired
+    private PlatformTransactionManager tmanager;
+    @Autowired
+    CompteTiersRepo compterepo;
+    static ArrayList<Mouvement> mouvements ;
+    
     @GetMapping("/page.html")
     public ModelAndView planComptablePage(){
         ModelAndView md=new ModelAndView("pageMouvement");
@@ -36,14 +48,60 @@ public class MouvementController {
         m.setId_Journal(new Long(1));
         md.addObject("vao",m);
         md.addObject("mouvements",this.getMouvements());
+        mouvements = null;
+        md.addObject("destination","ajouter");
+        List<comptesTiers> lcompte = this.compterepo.findByIntitule("");
+        System.out.println("taille du repo="+lcompte.size());
+        return md;
+    }
+    @GetMapping("/valider.html")
+    public String validerMouvements(){
+        TransactionStatus trans=tmanager.getTransaction(new DefaultTransactionDefinition());
+        try{
+            if(mouvements!=null&&this.testSiEquilibre(mouvements))
+            {
+                for(Mouvement mouv : mouvements)
+                {
+                    this.cptdao.save(mouv);
+                }
+            }
+            else{
+                return "error";
+            }
+            tmanager.commit(trans);
+        }
+        catch(Exception ex)
+        {
+            ex.printStackTrace();
+            tmanager.rollback(trans);
+        }
+        return "redirect:page.html";
+    }
+    @PostMapping("/ajouter")
+    public ModelAndView addComptesTiers(@ModelAttribute Mouvement cpt ){
+        //this.cptdao.save(cpt);
+        if(mouvements==null)
+            mouvements = new ArrayList<Mouvement>();
+        ModelAndView md=new ModelAndView("pageMouvement");
+        Mouvement m = new Mouvement();
+        m.setId_Journal(cpt.getId_Journal());
+        md.addObject("vao",m);
+        mouvements.add(cpt);
+        md.addObject("mouvements",mouvements);
         md.addObject("destination","ajouter");
         return md;
     }
-    @PostMapping("/ajouter")
-    public String addComptesTiers(@ModelAttribute Mouvement cpt ){
-        //this.cptdao.save(cpt);
-        cptdao.save(cpt);
-        return "redirect:page.html";
+    public boolean testSiEquilibre(ArrayList<Mouvement> mouvs)
+    {
+        double debit = 0,credit = 0;
+        for(Mouvement m: mouvs)
+        {
+            debit+= m.getDebit();
+            credit+= m.getCredit();
+        }
+        if(debit!=credit)
+            return false;
+        return true;
     }
     public ArrayList<Mouvement> getMouvements(){
         System.out.println("liste mouvements");
