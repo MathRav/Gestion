@@ -76,7 +76,7 @@ credit double,
 PRIMARY KEY(id)
 );
 
-insert into mvt(1,1,'2019-02-13','FA0001','1','','FACTURE CLIENT 1',null,100000,0);
+insert into mvt values(1,1,'2019-02-13','FA0001','1','','FACTURE CLIENT 1',null,100000,0);
 
 create view MvtJournal as
 select mvt.id,mvt.codeJournal as codeJournal,journal.intitule as intituleJournal,mvt.numerocompte as numerocompte,mvt.numerotiers as numerotiers,date_Mvt,reference,libelle,echeance,debit,credit
