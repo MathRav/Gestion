@@ -1,9 +1,4 @@
-create table devise(
-id integer not null auto_increment,
-intitule varchar(10),
-valeur double,
-PRIMARY KEY (id)
-);
+
 create table entreprise(
 id integer not null auto_increment,
 nom varchar(50),
@@ -14,6 +9,15 @@ allocCodes integer,
 PRIMARY KEY(id)
 );
 
+create table devise(
+id integer not null auto_increment,
+identreprise integer,
+foreign key(identreprise) references entreprise(id),
+intitule varchar(10),
+valeur double,
+PRIMARY KEY (id)
+);
+alter table devise add constraint unique(identreprise,intitule);
 create table journal(
 id integer not null auto_increment,
 idEntreprise integer not null,
