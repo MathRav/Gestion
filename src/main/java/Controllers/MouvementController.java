@@ -6,6 +6,7 @@
 package Controllers;
 import DAO.CompteTiersRepo;
 import DAO.MouvementDao;
+import DAO.PlanComptaRepo;
 import DAO.comptesTiersDao;
 import DAO.planComptableDao;
 import Model.Mouvement;
@@ -39,6 +40,9 @@ public class MouvementController {
     private PlatformTransactionManager tmanager;
     @Autowired
     CompteTiersRepo compterepo;
+    
+    @Autowired
+    PlanComptaRepo plancomptarepo;
     static ArrayList<Mouvement> mouvements ;
     
     @GetMapping("/page.html")
@@ -50,7 +54,7 @@ public class MouvementController {
         md.addObject("mouvements",this.getMouvements());
         mouvements = null;
         md.addObject("destination","ajouter");
-        List<comptesTiers> lcompte = this.compterepo.findByIntitule("");
+        List<comptesTiers> lcompte = this.compterepo.findByIntitule("Compte1");
         System.out.println("taille du repo="+lcompte.size());
         return md;
     }
@@ -86,6 +90,7 @@ public class MouvementController {
         Mouvement m = new Mouvement();
         m.setId_Journal(cpt.getId_Journal());
         md.addObject("vao",m);
+        
         mouvements.add(cpt);
         md.addObject("mouvements",mouvements);
         md.addObject("destination","ajouter");
