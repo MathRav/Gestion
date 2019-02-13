@@ -90,7 +90,7 @@ join journal on mvt.codeJournal=journal.id
 join plancomptable on mvt.numerocompte=plancomptable.code
 
 create view mvtotal as
-select mvt.id,mvt.id_exercice as idExercice,journal.code as codeJournal,journal.intitule as intituleJournal,mvt.id_compte as idCompte,plancomptable.intitule as intitulePlanComptable,plantiers.numero as numeroTiers,plantiers.intitule as intitulePlantiers,date_Mvt as dateMvt,reference,libelle,echeance,debit,credit
+select mvt.id,mvt.id_exercice as idExercice,journal.code as codeJournal,journal.intitule as intituleJournal,mvt.id_compte as idCompte,planComptable.code as codePlanComptable, plancomptable.intitule as intitulePlanComptable,plantiers.numero as numeroTiers,plantiers.intitule as intitulePlantiers,date_Mvt as dateMvt,reference,libelle,echeance,debit,credit
 from mvt
 join journal on mvt.id_Journal=journal.id
 join plancomptable on mvt.id_compte=plancomptable.id

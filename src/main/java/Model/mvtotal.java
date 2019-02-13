@@ -19,6 +19,7 @@ public class mvtotal implements Serializable{
 	private String intitulePlanComptable;
 	private String numeroTiers;
 	private String intitulePlantiers;
+	private String codePlanComptable;
 	private Date dateMvt;
 	private String reference;
 	private String libelle;
@@ -30,6 +31,13 @@ public class mvtotal implements Serializable{
 //		super();
 	}
 
+public String getCodePlanComptable(){
+	return codePlanComptable;
+}
+
+public void setCodePlanComptable(String vao){
+	codePlanComptable=vao;
+}
 
 
 	public Long getId() {
