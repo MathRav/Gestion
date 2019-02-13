@@ -9,14 +9,14 @@ import org.hibernate.annotations.Immutable;
 
 @Entity
 @Immutable
-@Table(name = "MvtJournalPlanComptable")
-public class mvtJournalPlanComptable implements Serializable{
+@Table(name = "mvTotal")
+public class mvTotal implements Serializable{
 	@Id
 	@GeneratedValue
 	private Long id;
 	private int codeJournal;
 	private String intituleJournal;
-	private String numerocompte;
+	private String idcompte;
 	private String intitulePlanComptable;
 	private String numerotiers;
         private String intitulePlantiers;
@@ -27,11 +27,11 @@ public class mvtJournalPlanComptable implements Serializable{
         private Double debit;
         private Double credit;
 
-    public mvtJournalPlanComptable(Long id, int codeJournal, String intituleJournal, String numerocompte, String intitulePlanComptable, String numerotiers, String intitulePlantiers, Date date_Mvt, String reference, String libelle, Date echeance, Double debit, Double credit) {
+    public mvTotal(Long id, int codeJournal, String intituleJournal, String idcompte, String intitulePlanComptable, String numerotiers, String intitulePlantiers, Date date_Mvt, String reference, String libelle, Date echeance, Double debit, Double credit) {
         this.id = id;
         this.codeJournal = codeJournal;
         this.intituleJournal = intituleJournal;
-        this.numerocompte = numerocompte;
+        this.idcompte = idcompte;
         this.intitulePlanComptable = intitulePlanComptable;
         this.numerotiers = numerotiers;
         this.intitulePlantiers = intitulePlantiers;
@@ -67,12 +67,12 @@ public class mvtJournalPlanComptable implements Serializable{
         this.intituleJournal = intituleJournal;
     }
 
-    public String getNumerocompte() {
-        return numerocompte;
+    public String getIdcompte() {
+        return idcompte;
     }
 
-    public void setNumerocompte(String numerocompte) {
-        this.numerocompte = numerocompte;
+    public void setIdcompte(String numerocompte) {
+        this.idcompte = numerocompte;
     }
 
     public String getIntitulePlanComptable() {
@@ -148,7 +148,7 @@ public class mvtJournalPlanComptable implements Serializable{
     }
 
 
-	public mvtJournalPlanComptable() {
+	public mvTotal() {
 //		super();
 	}
 
