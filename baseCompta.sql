@@ -90,12 +90,13 @@ join journal on mvt.codeJournal=journal.id
 join plancomptable on mvt.numerocompte=plancomptable.code
 
 create view mvtotal as
-select mvt.id,journal.code as codeJournal,journal.intitule as intituleJournal,mvt.id_compte as idCompte,plancomptable.intitule as intitulePlanComptable,plantiers.numero as numeroTiers,plantiers.intitule as intitulePlantiers,date_Mvt,reference,libelle,echeance,debit,credit
+select mvt.id,mvt.id_exercice as idExercice,journal.code as codeJournal,journal.intitule as intituleJournal,mvt.id_compte as idCompte,plancomptable.intitule as intitulePlanComptable,plantiers.numero as numeroTiers,plantiers.intitule as intitulePlantiers,date_Mvt as dateMvt,reference,libelle,echeance,debit,credit
 from mvt
 join journal on mvt.id_Journal=journal.id
 join plancomptable on mvt.id_compte=plancomptable.id
 left join plantiers on mvt.id_tiers=plantiers.id;
 
+select id,idExercice,codeJournal,intituleJournal,idCompte,intitulePlanComptable,numeroTiers,intitulePlantiers,dateMvt,reference,libelle,echeance,debit,credit from mvtotal  where idExercice=1 and month(dateMvt)=2 order by idCompte asc , dateMvt asc;
 
 
 
