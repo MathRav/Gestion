@@ -26,6 +26,18 @@ public class CompteTiersController {
         ModelAndView md=new ModelAndView("pageCompteTiers");
         md.addObject("listeTiers",getComptesTiers());
         md.addObject("vao",new comptesTiers());
+        md.addObject("destination","ajouter");
+        return md;
+    }
+
+    @GetMapping("/pageModif.html")
+    public ModelAndView ModifcomptesTiers(@RequestParam("id") Long id){
+      comptesTiers cpt=this.cptdao.findById(id).get();
+      if(cpt==null) cpt=new comptesTiers();
+        ModelAndView md=new ModelAndView("pageCompteTiers");
+        md.addObject("listeTiers",getComptesTiers());
+        md.addObject("vao",cpt);
+        md.addObject("destination","modifier");
         return md;
     }
 
