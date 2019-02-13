@@ -1,0 +1,7 @@
+AppRunner\Application.class
+Controllers\CompteTiersController.class
+DAO\comptesTiersDao.class
+Controllers\AccueilController.class
+Model\comptesTiers.class
+Security\Hash.class
+Security\WebConfig.class
