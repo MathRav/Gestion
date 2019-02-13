@@ -63,11 +63,12 @@ insert into types values(1,'CLIENT');
 
 create table mvt(
 id integer not null auto_increment,
-codeJournal integer,
+Id_Journal integer,
 date_Mvt date,
 reference varchar(10),
-numerocompte varchar(10),
-numerotiers varchar(10),
+id_compte integer,
+id_tiers integer,
+id_exercice integer,
 libelle varchar(50),
 echeance date,
 debit double,
@@ -79,21 +80,21 @@ insert into mvt values(1,1,'2019-02-13','FA0001','1','','FACTURE CLIENT 1',null,
 
 create view MvtJournal as
 select mvt.id,mvt.codeJournal as codeJournal,journal.intitule as intituleJournal,mvt.numerocompte as numerocompte,mvt.numerotiers as numerotiers,date_Mvt,reference,libelle,echeance,debit,credit
-from mvt 
+from mvt
 join journal on mvt.codeJournal=journal.id
 
 create view MvtJournalPlanComptable as
 select mvt.id,mvt.codeJournal as codeJournal,journal.intitule as intituleJournal,mvt.numerocompte as numerocompte,plancomptable.intitule as intitulePlanComptable,mvt.numerotiers as numerotiers,date_Mvt,reference,libelle,echeance,debit,credit
-from mvt 
+from mvt
 join journal on mvt.codeJournal=journal.id
 join plancomptable on mvt.numerocompte=plancomptable.code
 
-create view MvtJournalPlanComptable as
-select mvt.id,mvt.codeJournal as codeJournal,journal.intitule as intituleJournal,mvt.numerocompte as numerocompte,plancomptable.intitule as intitulePlanComptable,mvt.numerotiers as numerotiers,plantiers.intitule as intitulePlantiers,date_Mvt,reference,libelle,echeance,debit,credit
-from mvt 
-join journal on mvt.codeJournal=journal.id
-join plancomptable on mvt.numerocompte=plancomptable.code
-left join plantiers on mvt.numerotiers=plantiers.id
+create view mvtotal as
+select mvt.id,journal.code as codeJournal,journal.intitule as intituleJournal,mvt.id_compte as idCompte,plancomptable.intitule as intitulePlanComptable,plantiers.numero as numeroTiers,plantiers.intitule as intitulePlantiers,date_Mvt,reference,libelle,echeance,debit,credit
+from mvt
+join journal on mvt.id_Journal=journal.id
+join plancomptable on mvt.id_compte=plancomptable.id
+left join plantiers on mvt.id_tiers=plantiers.id;
 
 
 

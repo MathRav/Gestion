@@ -21,9 +21,9 @@ import javax.persistence.Table;
 @Table(name="mvt")
 public class Mouvement implements Serializable{
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-    
+
     private Long id_Journal;
     private Date date_Mvt;
     private String reference;
@@ -139,5 +139,5 @@ public class Mouvement implements Serializable{
         this.debit = debit;
         this.credit = credit;
     }
-    
+
 }
