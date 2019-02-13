@@ -40,11 +40,11 @@ public class MouvementController {
     private PlatformTransactionManager tmanager;
     @Autowired
     CompteTiersRepo compterepo;
-    
+
     @Autowired
     PlanComptaRepo plancomptarepo;
     static ArrayList<Mouvement> mouvements ;
-    
+
     @GetMapping("/page.html")
     public ModelAndView planComptablePage(){
         ModelAndView md=new ModelAndView("pageMouvement");
@@ -94,11 +94,13 @@ public class MouvementController {
         {
             //message erreur
         }
-        if(!this.cptdao.existsById(cpt.getId_tiers()))
+/*        if(!this.cptdao.existsById(cpt.getId_tiers()))
         {
             //message erreur
         }
-        if(this.tiersdao.existsById(cpt.getId_tiers())&&this.cptdao.existsById(cpt.getId_tiers()))
+        */
+        //if(this.tiersdao.existsById(cpt.getId_tiers())&&this.cptdao.existsById(cpt.getId_tiers()))
+        if(this.tiersdao.existsById(cpt.getId_tiers())) 
             mouvements.add(cpt);
         md.addObject("mouvements",mouvements);
         md.addObject("destination","ajouter");
