@@ -17,7 +17,4 @@ public class AccueilController {
     public String getAccueil(){
         return "index";
     }
-
-
-
 }

@@ -88,7 +88,7 @@ from mvt
 join journal on mvt.codeJournal=journal.id
 join plancomptable on mvt.numerocompte=plancomptable.code
 
-create view MvtJournalPlanComptableTiers as
+create view MvtJournalPlanComptable as
 select mvt.id,mvt.codeJournal as codeJournal,journal.intitule as intituleJournal,mvt.numerocompte as numerocompte,plancomptable.intitule as intitulePlanComptable,mvt.numerotiers as numerotiers,plantiers.intitule as intitulePlantiers,date_Mvt,reference,libelle,echeance,debit,credit
 from mvt 
 join journal on mvt.codeJournal=journal.id
