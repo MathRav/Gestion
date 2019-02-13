@@ -6,14 +6,13 @@
 package Controllers;
 
 import DAO.comptesTiersDao;
+import DAO.mvtJournalPlanComptableDao;
 import Model.comptesTiers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.bind.annotation.RequestParam;
-import DAO.mvTotal;
 
 /**
  *
@@ -21,14 +20,14 @@ import DAO.mvTotal;
  */
 @RequestMapping("/mvtJournalPlanComptable")
 @Controller
-public class MvTotal {
+public class MvtJournalPlanComptableController {
     @Autowired
-  mvTotal mjpc;
+  mvtJournalPlanComptableDao mjpc;
     
     @GetMapping("/page.html")
-    public ModelAndView mvtJournalPC(@RequestParam("date1") java.sql.Date date1,@RequestParam("date1") java.sql.Date date2){
-        ModelAndView md=new ModelAndView("mvtotal");
-       // md.addObject("listemvt",mjpc.getMvtParPlanComptable(date1, date2));      
+    public ModelAndView mvtJournalPC(){
+        ModelAndView md=new ModelAndView("mvtJournalPlanComptable");
+        md.addObject("listemvt",mjpc.getAllJournalPlanComptable());      
         return md;
     }
     
