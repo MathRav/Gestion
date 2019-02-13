@@ -4,15 +4,14 @@ import Model.planComptable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-//import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface planComptableDao extends JpaRepository<planComptable, Long>{
-/*  @Transactional(timeout = 10)
+  @Transactional
     @Override
-    <S extends compteTiers> S save(S s);
-    @Transactional(timeout = 10)
+    <S extends planComptable> S save(S s);
+    @Transactional
       @Override
-      void delete(comptesTiers s);
-      */
+      void delete(planComptable s);
 }

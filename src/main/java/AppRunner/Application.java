@@ -16,6 +16,8 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import javax.persistence.EntityManager;
+import java.sql.SQLException;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"Controllers","DAO","Model","Security"} )
@@ -29,12 +31,13 @@ public class Application {
         SpringApplication.run(Application.class, args);
         System.out.println(appName);
     }
-    /*
 
+/*
     @Bean
-      public LocalContainerEntityManagerFactoryBean getEntityManagerFactory() throws SQLException{
+      public LocalContainerEntityManagerFactoryBean getEntityManagerFactory(){
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
-        //...
+        factory.setPackagesToScan("Model");
+//localContainerEntityManagerFactoryBean.setPersistenceUnitName("name");
         return factory;
       }
 
@@ -42,9 +45,10 @@ public class Application {
       public PlatformTransactionManager transactionManager(){
           JpaTransactionManager transactionManager  = new JpaTransactionManager();
           transactionManager.setEntityManagerFactory(
-          entityManagerFactoryBean().getObject() );
+          getEntityManagerFactory().getObject() );
           return transactionManager;
       }
-*/
+      */
+
 
 }

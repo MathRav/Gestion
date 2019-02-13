@@ -12,7 +12,7 @@ import java.util.Iterator;
 import org.springframework.web.servlet.ModelAndView;
 import java.util.ArrayList;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 @RequestMapping("/comptesTiers")
@@ -57,11 +57,13 @@ public class CompteTiersController {
     }
 
     @PostMapping("/ajouter")
+      @Transactional
     public String addComptesTiers(@ModelAttribute comptesTiers cpt ){
         this.cptdao.save(cpt);
         return "redirect:page.html";
     }
     @GetMapping("/supprimer")
+      @Transactional
     public String supprComptesTiers(@RequestParam("id") Long id){
       comptesTiers cpt=this.cptdao.findById(id).get();
       if(cpt!=null) this.cptdao.delete(cpt);
