@@ -90,8 +90,16 @@ public class MouvementController {
         Mouvement m = new Mouvement();
         m.setId_Journal(cpt.getId_Journal());
         md.addObject("vao",m);
-        
-        mouvements.add(cpt);
+        if(!this.tiersdao.existsById(cpt.getId_tiers()))
+        {
+            //message erreur
+        }
+        if(!this.cptdao.existsById(cpt.getId_tiers()))
+        {
+            //message erreur
+        }
+        if(this.tiersdao.existsById(cpt.getId_tiers())&&this.cptdao.existsById(cpt.getId_tiers()))
+            mouvements.add(cpt);
         md.addObject("mouvements",mouvements);
         md.addObject("destination","ajouter");
         return md;
