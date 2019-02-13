@@ -118,10 +118,31 @@ public class GPDF {
 
             */
             double solde=0;
+            String lastCompteDtl=null;
             for (mvtotal ray : liste) {
+
+                  if(lastCompte!=null && lastCompte.charAt(0)!=(ray.getCodePlanComptable()+"").charAt(0)){
+                    hcell = new PdfPCell(new Phrase("Total compte (fin) "+lastCompte.charAt(0), headFont));
+                    hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    table.addCell(hcell);
+                    table.completeRow();
+                  }
                 if(lastCompte==null || lastCompte.charAt(0)!=(ray.getCodePlanComptable()+"").charAt(0)){
                   lastCompte=ray.getCodePlanComptable()+"";
                   hcell = new PdfPCell(new Phrase("Compte "+lastCompte.charAt(0), headFont));
+                  hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                  table.addCell(hcell);
+                  table.completeRow();
+                }
+
+                if(lastCompteDtl!=null && !lastCompteDtl.equals(ray.getCodePlanComptable()+"")){
+                  hcell = new PdfPCell(new Phrase("Total "+ray.getIntitulePlanComptable()+" (fin)", headFont));
+                  hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                  table.addCell(hcell);
+                  table.completeRow();
+                } else if(lastCompteDtl==null || !lastCompteDtl.equals(ray.getCodePlanComptable()+"")){
+                  lastCompteDtl=ray.getCodePlanComptable()+"";
+                  hcell = new PdfPCell(new Phrase(lastCompteDtl+" "+ray.getIntitulePlanComptable(), headFont));
                   hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
                   table.addCell(hcell);
                   table.completeRow();
