@@ -5,12 +5,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.io.Serializable;
 
-import javax.persistence.GenerationType;
 @Entity
 @Table(name = "plantiers")
 public class comptesTiers implements Serializable{
 	@Id
-@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue
 	private Long id;
 	private Long idEntreprise;
 
