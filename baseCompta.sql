@@ -78,6 +78,13 @@ id_Journal integer,
 id_tiers integer,
 PRIMARY KEY(id)
 );
+create table exercice(
+id integer not null auto_increment,
+identreprise integer not null,
+annee integer not null,
+isClotured boolean,PRIMARY KEY(id),
+FOREIGN KEY (identreprise) REFERENCES entreprise(id)
+);
 
 insert into mvt values(1,1,'2019-02-13','FA0001','1','','FACTURE CLIENT 1',null,100000,0,1,1,1,1);
 insert into mvt values(2,1,'2019-02-13','FA0001','1','','FACTURE CLIENT 1',null,0,100000,1,1,1,1);
@@ -121,12 +128,5 @@ select id,idExercice,codeJournal,intituleJournal,idCompte,numcompte,intitulePlan
 SELECT idcompte,numcompte, SUM(debit) as debit,SUM(credit) as credit,SUM(debit)-SUM(credit)as solde FROM mvtotal2 where MONTH(dateMvt)>=02 AND YEAR(dateMvt)>=2019 AND MONTH(dateMvt)<=02 AND YEAR(dateMvt)<=2019 and numcompte like '1%' GROUP BY idCompte,numcompte;
 
 
-create table exercice(
-id integer not null auto_increment,
-identreprise integer not null,
-annee integer not null,
-isClotured boolean,PRIMARY KEY(id),
-FOREIGN KEY (identreprise) REFERENCES entreprise(id)
-);
 
 insert into exercice values(1,1,2019,false);
