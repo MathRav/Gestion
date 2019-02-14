@@ -75,6 +75,13 @@ debit double,
 credit double,
 PRIMARY KEY(id)
 );
+create table exercice(
+id integer not null auto_increment,
+identreprise integer not null,
+annee integer not null,
+isClotured boolean,PRIMARY KEY(id),
+FOREIGN KEY (identreprise) REFERENCES entreprise(id)
+);
 
 insert into mvt values(1,1,'2019-02-13','FA0001','1','','FACTURE CLIENT 1',null,100000,0);
 
@@ -100,12 +107,5 @@ select id,idExercice,codeJournal,intituleJournal,idCompte,intitulePlanComptable,
 
 
 
-create table exercice(
-id integer not null auto_increment,
-identreprise integer not null,
-annee integer not null,
-isClotured boolean,PRIMARY KEY(id),
-FOREIGN KEY (identreprise) REFERENCES entreprise(id)
-);
 
 insert into exercice values(1,1,2019,false);

@@ -49,23 +49,26 @@ public class Entreprisecontroller {
             liste.addObject("Message","Success");
         }
         catch(Exception e){
+            e.printStackTrace();
             liste.addObject("Message",e.getMessage());
         }
         finally{
-            liste.addObject("liste",exercice.findByidentreprise(identreprise));
+            liste.addObject("liste",devise.findByidentreprise(identreprise));
             return liste;
         }
     }
-    @PostMapping("/CreationExercice/{id}")
+    @GetMapping("/CreationExercice/{id}")
     public ModelAndView Exercices(@PathVariable("id")Long identreprise) throws Exception{
-        ModelAndView liste=new ModelAndView("Exercices");
+        ModelAndView liste=new ModelAndView("Exercice");
         liste.addObject("liste",exercice.findByidentreprise(identreprise));
+        liste.addObject("obj",entreprise.findById(identreprise).get());
         return liste;
     }
     @Transactional
     @PostMapping("/CreerExercice/{id}")
     public ModelAndView CreerExercice(@PathVariable("id")Long identreprise,@RequestParam("annee")int an) throws Exception{
-        ModelAndView liste=new ModelAndView("Exercices");
+        ModelAndView liste=new ModelAndView("Exercice");
+        liste.addObject("obj",entreprise.findById(identreprise).get());
         try{
             Exercice e=new Exercice();
             e.setAnnee(an);e.setIdentreprise(identreprise);e.setIsclotured(ExerciceDAO.notcloture);
