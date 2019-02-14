@@ -1,0 +1,12 @@
+<html  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+</head>
+<body>
+<th:block th:each="list : ${liste}">
+
+    <p th:text="${list.credit}"></p>
+
+</th:block>
+</body>
+</html>

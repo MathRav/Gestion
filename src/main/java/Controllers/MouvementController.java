@@ -98,13 +98,9 @@ public class MouvementController {
         {
             //message erreur
         }
-<<<<<<< HEAD
         if(this.tiersdao.existsById(cpt.getId_tiers())&&this.cptdao.existsById(cpt.getId_tiers()))
-=======
-        */
         //if(this.tiersdao.existsById(cpt.getId_tiers())&&this.cptdao.existsById(cpt.getId_tiers()))
         if(this.tiersdao.existsById(cpt.getId_tiers()))
->>>>>>> e482111221859080b9764fdcbc855a41e6647e79
             mouvements.add(cpt);
         md.addObject("mouvements",mouvements);
         md.addObject("destination","ajouter");
