@@ -21,7 +21,7 @@ public class MvtotalController {
   @Autowired
   mvtotalDao mvtdao;
 
-    @GetMapping("/page.html")
+    @GetMapping("/page4.html")
     public ModelAndView comptesTiers(){
         ModelAndView md=new ModelAndView("testMvt");
         md.addObject("liste",this.mvtdao.findAllZavatra(new Integer(2),new Long(1L)))  ;
