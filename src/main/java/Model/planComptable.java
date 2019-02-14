@@ -5,13 +5,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.io.Serializable;
 
-import javax.persistence.GenerationType;
-
 @Entity
 @Table(name = "plancomptable")
 public class planComptable implements Serializable{
 	@Id
-	    @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue
 	private Long id;
 	private Long idEntreprise;
 
