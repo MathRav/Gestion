@@ -10,7 +10,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Mouvements</title>
+    <title>Journaux</title>
 
     <!-- Fontfaces CSS-->
     <link href="/css/font-face.css" rel="stylesheet" media="all">
@@ -56,7 +56,7 @@
                                 <table class="table table-borderless table-striped table-earning">
                                     <thead>
                                     <tr>
-                                      <th>Periode</th>
+                                        <th>Periode</th>
                                         <th>Code</th>
                                         <th>Intitule</th>
                                         <th></th>
@@ -68,7 +68,7 @@
                                             <td th:text="${ex.mois}+'/'+${ex.exercice.annee}"></td>
                                             <td th:text="${ex.journal.code}"></td>
                                             <td th:text="${ex.journal.intitule}"></td>
-                                            <td ><a th:href="@{'/mouvements/page.html/'+${obj.id}}">Voir</a></td>
+                                            <td ><a>Voir</a></td>
                                         </tr>
                                     </th:block>
                                     </tbody>

@@ -8,25 +8,25 @@ import javax.persistence.Id;
 @Entity
 public class Journal {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private int id;
-    private int idEntreprise;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long id;
+    private Long idEntreprise;
     private String code;
     private String intitule;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public int getIdEntreprise() {
+    public Long getIdEntreprise() {
         return idEntreprise;
     }
 
-    public void setIdEntreprise(int idEntreprise) {
+    public void setIdEntreprise(Long idEntreprise) {
         this.idEntreprise = idEntreprise;
     }
 
@@ -46,7 +46,7 @@ public class Journal {
         this.intitule = intitule;
     }
     public Journal(){}
-    public Journal(int id, int idEntreprise, String code, String intitule) {
+    public Journal(Long id, Long idEntreprise, String code, String intitule) {
         this.id = id;
         this.idEntreprise = idEntreprise;
         this.code = code;

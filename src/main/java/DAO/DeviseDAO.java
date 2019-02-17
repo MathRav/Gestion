@@ -9,4 +9,7 @@ import java.util.List;
 public interface DeviseDAO extends JpaRepository<Devise,Long> {
     @Transactional
     public List<Devise> findByidentreprise(Long identreprise);
+    @Transactional
+        @Override
+        <S extends Devise> S save(S s);
 }

@@ -11,5 +11,7 @@ public interface ExerciceDAO extends JpaRepository<Exercice,Long> {
     public static final int notcloture=1;
     @Transactional
     public List<Exercice> findByidentreprise(Long id);
-
+    @Transactional
+        @Override
+        <S extends Exercice> S save(S s);
 }

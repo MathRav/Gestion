@@ -1,5 +1,6 @@
 package Controllers;
 
+import DAO.EntrepriseDAO;
 import DAO.ExerciceDAO;
 import DAO.JournalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,30 +21,34 @@ public class JournalController {
 
     @Autowired
     private ExerciceDAO exercice;
+    @Autowired
+    private EntrepriseDAO entreprise;
 
-    @GetMapping("/journal.html")
-    public ModelAndView loadView(){
+    @GetMapping("/journal.html/{id}")
+    public ModelAndView loadView(@PathVariable("id")String identreprise){
         ModelAndView mv = new ModelAndView("journal");
-        mv.addObject("journals",journalRepository.findAll());
+        mv.addObject("journals",journalRepository.findByidEntreprise(Long.valueOf(identreprise)));
         Journal j = new Journal();
-        j.setIdEntreprise(new Long(1));
+        j.setIdEntreprise(Long.valueOf(identreprise));
         mv.addObject("vao",j);
+        mv.addObject("obj",entreprise.findById(Long.valueOf(identreprise)).get());
         return mv;
     }
-    @PostMapping("/add")
+    @PostMapping("/add/{id}")
     @Transactional
-    public String addJournal(@ModelAttribute Journal journal){
+    public String addJournal(@PathVariable("id")String identreprise,@ModelAttribute Journal journal){
         journalRepository.save(journal);
-        return "redirect:/Journal/journal.html";
+        return "redirect:/Journal/journal.html/"+identreprise;
     }
 
-    @GetMapping("/update")
+    @GetMapping("/update/{id}")
     @Transactional
-    public ModelAndView updateJournal(@RequestParam int id){
-        Journal j = journalRepository.findById(id).get();
+    public ModelAndView updateJournal(@PathVariable("id")String identreprise,@RequestParam String id){
+        Journal j = journalRepository.findById(Long.valueOf(id)).get();
         ModelAndView mv = new ModelAndView("journal");
-        mv.addObject("journals",journalRepository.findAll());
+        mv.addObject("journals",journalRepository.findByidEntreprise(Long.valueOf(identreprise)));
         mv.addObject("vao",j);
+        mv.addObject("obj",entreprise.findById(Long.valueOf(identreprise)).get());
         return mv;
     }
     @PostMapping("/list")
@@ -51,23 +56,23 @@ public class JournalController {
         return journalRepository.findAll();
     }
 
-    @GetMapping("/delete")
-    public String deleteJournal(@RequestParam int id){
-        Journal j = journalRepository.findById(id).get();
+    @GetMapping("/delete/{id}")
+    public String deleteJournal(@PathVariable("id")String identreprise,@RequestParam String id){
+        Journal j = journalRepository.findById(Long.valueOf(id)).get();
         journalRepository.delete(j);
-        return "redirect:/Journal/journal.html";
+        return "redirect:/Journal/journal.html/"+identreprise;
     }
 
-    @GetMapping("/ExerciceMois")
-    public ModelAndView getExerciceMois(){
-        ArrayList<ExerciceMois> listEM = getExerciceJournalMois();
+    @GetMapping("/em/{id}")
+    public ModelAndView getExerciceMois(@PathVariable("id")String identreprise){
+        ArrayList<ExerciceMois> listEM = getExerciceJournalMois(identreprise,"1");
         ModelAndView mv = new ModelAndView("exMois");
         mv.addObject("exMois",listEM);
         return mv;
     }
-    public ArrayList<ExerciceMois> getExerciceJournalMois(){
+    public ArrayList<ExerciceMois> getExerciceJournalMois(String identreprise,String idex){
         long id = 1;
-        Exercice ex = exercice.findById(id).get();
+        Exercice ex = exercice.findById(Long.valueOf(idex)).get();
         List<Journal> listeJournal = journalRepository.findByidEntreprise(ex.getIdentreprise());
         ArrayList<ExerciceMois> listEM = new ArrayList();
         for(int i =1;i<=12;i++){

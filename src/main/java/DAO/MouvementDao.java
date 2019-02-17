@@ -21,5 +21,5 @@ public interface MouvementDao extends JpaRepository<Mouvement, Long>{
     @Transactional
     @Override
     public <S extends Mouvement> S save(S s);
-    
+
 }

@@ -1,3 +1,32 @@
+<aside th:fragment="menuprim" class="menu-sidebar2">
+    <div class="logo">
+        <a href="#">
+            <img src="/images/icon/logo-white.png" alt="Cool Admin" />
+        </a>
+    </div>
+    <div class="menu-sidebar2__content js-scrollbar1">
+
+        <nav class="navbar-sidebar2">
+            <ul class="list-unstyled navbar__list">
+                <li class="active has-sub">
+                    <a class="js-arrow" href="#">
+                        <i class="fa fa-suitcase"></i>Entreprise
+                        <span class="arrow">
+                            <i class="fas fa-angle-down"></i>
+                        </span>
+                    </a>
+                    <ul class="list-unstyled navbar__sub-list js-sub-list">
+                        <li>
+                            <a href="/Entreprise/Creation">
+                                <i class="fa fa-plus"></i>Création</a>
+                        </li>
+
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</aside>
 <aside th:fragment="menu" class="menu-sidebar2">
     <div class="logo">
         <a href="#">
@@ -24,20 +53,20 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="/Journal/journal.html">
+                    <a th:href="@{'/Journal/journal.html/'+${obj.id}}">
                         <i class="fa fa-book"></i>Journal</a>
                 </li>
                 <li>
-                    <a href="/planComptable/page.html">
+                    <a th:href="@{'/planComptable/page.html/'+${obj.id}}">
                         <i class="fa fa-edit"></i>Plan comptable</a>
                 </li>
                 <li>
-                    <a href="/comptesTiers/page.html">
+                    <a th:href="@{'/comptesTiers/page.html/'+${obj.id}}">
                         <i class="fa fa-group"></i>Plan Tiers</a>
                 </li>
                 <li>
-                    <a href="#">
-                        <i class="fa fa-dollar"></i>Mouvements</a>
+                    <a th:href="@{'/Journal/em/'+${obj.id}}">
+                        <i class="fa fa-dollar"></i>Mouvements </a>
                 </li>
             </ul>
         </nav>
@@ -315,16 +344,7 @@
                 <div class="col-md-12">
                     <div class="au-breadcrumb-content">
                         <div class="au-breadcrumb-left">
-                            <span class="au-breadcrumb-span">You are here:</span>
-                            <ul class="list-unstyled list-inline au-breadcrumb__list">
-                                <li class="list-inline-item active">
-                                    <a href="#">Home</a>
-                                </li>
-                                <li class="list-inline-item seprate">
-                                    <span>/</span>
-                                </li>
-                                <li class="list-inline-item">Dashboard</li>
-                            </ul>
+                            <span class="au-breadcrumb-span" th:utext="'Entreprise : '+${obj.nom}"></span>
                         </div>
                         <button class="au-btn au-btn-icon au-btn--green">
                             <i class="zmdi zmdi-plus"></i>add item</button>

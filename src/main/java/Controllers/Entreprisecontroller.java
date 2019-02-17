@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.transaction.Transactional;
 
+
 @RequestMapping("/Entreprise")
 @Controller
 public class Entreprisecontroller {
@@ -22,9 +23,19 @@ public class Entreprisecontroller {
     private ExerciceDAO exercice;
     @Autowired
     private DeviseDAO devise;
+    @GetMapping("/Creation/{id}")
+    public ModelAndView CreateEntreprise(@PathVariable("id")Long identreprise){
+
+        ModelAndView mda=new ModelAndView("Creation");
+        mda.addObject("obj",entreprise.findById(identreprise).get());
+        mda.addObject("liste",entreprise.findAll());
+        return mda;
+    }
     @GetMapping("/Creation")
     public ModelAndView CreateEntreprise(){
+
         ModelAndView mda=new ModelAndView("Creation");
+        mda.addObject("obj",entreprise.findById(1L).get());
         mda.addObject("liste",entreprise.findAll());
         return mda;
     }

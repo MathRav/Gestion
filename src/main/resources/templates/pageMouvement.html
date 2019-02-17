@@ -11,7 +11,7 @@
 
          <div th:replace="elements :: cssambony"></div>
     <!-- Title Page-->
-    <title>Plans Comptables</title>
+    <title>Mouvements</title>
 
 
 
@@ -31,7 +31,15 @@
 
 
             <!-- Contenu <section>-->
+                <script th:inline="javascript">
+                    /*<![CDATA[*/
 
+                        var username = /*[[${Message}]]*/ 'Sebastian';
+                        if(username!=null)
+                            alert(username);
+
+                    /*]]>*/
+                </script>
             <section>
               <div class="container-fluid">
                   <div class="row">
@@ -43,7 +51,7 @@
                                   <h3 class="text-center title-2">Ajouter mouvement</h3>
                               </div>
                               <hr>
-                              <form action="#" method="post" novalidate="novalidate" th:action="@{/mouvements/ajouter}" th:object="${vao}">
+                              <form action="#" method="post" novalidate="novalidate" th:action="@{/mouvements/ajouter/} + ${entid}" th:object="${vao}">
                                 <input name="id" th:field="*{id}" type="hidden">
                                   <div class="form-group">
                                     <label for="idEntreprise" class="control-label mb-1">Journal</label>
@@ -53,19 +61,26 @@
                                       <label for="code" class="control-label mb-1">Date mouvement</label>
                                       <input name="code" type="date" class="form-control" th:field="*{date_Mvt}"  >
                                   </div>
-                                
+
                                   <div class="form-group">
                                       <label for="code" class="control-label mb-1">Reference</label>
                                       <input name="code" type="text" class="form-control" th:field="*{reference}"  >
                                   </div>
                                   <div class="form-group">
                                       <label for="code" class="control-label mb-1">Plan compta</label>
-                                      <input name="code" type="number" class="form-control" th:field="*{id_compte}"  >
+                                      <select id="plan_compta" class="form-control" th:field="*{id_compte}"  onchange="getComptePlanCompta()">
+                                        <option  th:each="tier : ${comptables}" th:attr="value=${tier.id}" th:text="${tier.code}"></option>
+                                      </select>
+                                      <!--<input id="compta" name="code" type="text" class="form-control" th:field="*{id_compte}"  >-->
                                   </div>
-                                
+
                                   <div class="form-group">
-                                      <label for="code" class="control-label mb-1">Plan tiers</label>
-                                      <input name="code" type="number" class="form-control" th:field="*{id_tiers}"  >
+                                    <label for="code" class="control-label mb-1">Plan tiers</label>
+                                    <select id="plan_tiers" class="form-control" th:field="*{id_tiers}">
+                                        <option value="" ></option>
+                                        <!--<option  th:each="tier : ${tiers}" th:attr="value=${tier.id}" onclick="getComptePlanCompta()" th:text="${tier.intitule}"></option>-->
+                                        <!--<input name="code" type="number" class="form-control" th:field="*{id_tiers}"  >-->
+                                    </select>
                                   </div>
                                   <div class="form-group">
                                     <label for="intitule" class="control-label mb-1">Exercice</label>
@@ -75,7 +90,7 @@
                                     <label for="intitule" class="control-label mb-1">Libelle</label>
                                       <input name="intitule" type="text" class="form-control" th:field="*{libelle}" >
                                   </div>
-                                
+
                                   <div class="form-group">
                                     <label for="intitule" class="control-label mb-1">Echeance</label>
                                       <input name="intitule" type="date" class="form-control" th:field="*{echeance}" >
@@ -84,7 +99,7 @@
                                     <label for="intitule" class="control-label mb-1">Debit</label>
                                       <input name="intitule" type="number" class="form-control" th:field="*{debit}" >
                                   </div>
-                                
+
                                 <div class="form-group">
                                     <label for="intitule" class="control-label mb-1">Credit</label>
                                       <input name="intitule" type="number" class="form-control" th:field="*{credit}" >
@@ -93,7 +108,7 @@
                                       <button  type="submit" class="btn btn-lg btn-info btn-block">
                                           <span th:text="${destination}"></span>
                                       </button>
-                                      
+
                                   </div>
                               </form>
                           </div>
@@ -133,8 +148,59 @@
                                       <td th:text="${user.reference}"></td>
                                       <td th:text="${user.debit}"></td>
                                       <td th:text="${user.credit}"></td>
-                                      <td ><a th:href="@{/mouvements/pageModif.html?(id=${user.id})}">Modifier</a></td>
-                                      <td ><a th:href="@{/mouvements/supprimer?(id=${user.id})}">Supprimer</a></td>
+                                      <td ><a th:href="@{/mouvements/pageModif.html/} + ${entid}+ @{?(id=${user.id})}">Modifier</a></td>
+                                      <td ><a th:href="@{/mouvements/supprimer/} + ${entid}+ @{?(id=${user.id})}">Supprimer</a></td>
+                                  </tr>
+                                </th:block>
+                              </tbody>
+                          </table>
+                          <br>
+                          <div class="row">
+                              <div class="col-md-4"></div>
+
+                          </div>
+                          <br>
+                      </div>
+
+                    </div>
+                  </div>
+              </div>
+            </section>
+
+            <section>
+                <h3>Mouvements non valides</h3>
+              <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-xl-12">
+                      <div class="table-responsive table--no-card m-b-30">
+                          <table class="table table-borderless table-striped table-earning">
+                              <thead>
+                                  <tr>
+                                      <th>Id</th>
+                                      <th>Libelle</th>
+                                      <th>echeance</th>
+                                      <th>Journal</th>
+                                      <th>Compte</th>
+                                        <th>tiers</th>
+                                        <th>Reference</th>
+                                        <th>Debit</th>
+                                        <th>Credit</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <th:block th:if="${mouvementNonValides != null }" th:each="user : ${mouvementNonValides}">
+                                  <tr>
+                                      <td th:text="${user.id}"></td>
+                                      <td th:text="${user.libelle}"></td>
+                                      <td th:text="${user.echeance}"></td>
+                                      <td th:text="${user.id_Journal}"></td>
+                                      <td th:text="${user.id_compte}"></td>
+                                      <td th:text="${user.id_tiers}"></td>
+                                      <td th:text="${user.reference}"></td>
+                                      <td th:text="${user.debit}"></td>
+                                      <td th:text="${user.credit}"></td>
+                                      <td ><a th:href="@{/mouvements/pageModif.html/} + ${entid}+ @{?(id=${user.id})}">Modifier</a></td>
+                                      <td ><a th:href="@{/mouvements/supprimer/} + ${entid}+ @{?(id=${user.id})}">Supprimer</a></td>
                                   </tr>
                                 </th:block>
                               </tbody>
@@ -151,7 +217,7 @@
                           </div>
                           <br>
                       </div>
-                       
+
                     </div>
                   </div>
               </div>
@@ -172,7 +238,45 @@
         </div>
 
     </div>
-         <div th:replace="elements :: cssambany"></div>
+    <div th:replace="elements :: cssambany"></div>
+    <script src="/js/test.js"></script>
+
+    <script  th:inline="javascript">
+    /*<![CDATA[*/
+      var entreprise = /*[[${entid}]]*/ '1';
+        function getComptePlanCompta()
+        {
+            var select = document.getElementById("plan_compta");
+            if(select==null)
+                return;
+            var value = select.options[select.selectedIndex].text;
+            AccesAjax(callback,"http://localhost:8082/comptesTiers/listecompteTiers?compteCollectif="+value+"&eid="+entid,"GET");
+        }
+        function callback(data)
+        {
+            console.log(data);
+            var tier = document.getElementById("plan_tiers");
+            var optionVide = document.createElement("option");
+            optionVide.value ="";
+            tier.innerHTML = "";
+            tier.appendChild(optionVide);
+            for(var i=0;i<data.length;i++)
+            {
+                var option = document.createElement("option");
+                option.setAttribute("value",data[i].id);
+                option.textContent = data[i].intitule;
+                tier.appendChild(option);
+            }
+        }
+        function callback2(data)
+        {
+            var select = document.getElementById("compta");
+            select.value = data.code ;
+//            console.log(data);
+        }
+
+
+    </script>
 </body>
 
 </html>
