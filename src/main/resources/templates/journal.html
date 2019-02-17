@@ -52,9 +52,9 @@
             <div class="row">
                 <div class="col-lg-9">
                     <div class="card">
-                        <div class="card-header">Insertion Journal</div>
+                        <div class="card-header"><h3 class="text-center title-2" th:utext="${obj.nom}"></h3></div>
                         <div class="card-body">
-                            <form class="form-inline" th:action="@{/Journal/add}" method="post" th:object="${vao}">
+                            <form  th:action="@{/Journal/add}+'/'+${obj.id}" method="post" th:object="${vao}">
                                 <input name="id" th:field="*{id}" type="hidden">
                                 <input type="hidden" name="idEntreprise" th:field="*{idEntreprise}">
                                 <div class="form-group">
@@ -90,8 +90,8 @@
                                         <tr>
                                             <td th:text="${journal.code}"></td>
                                             <td th:text="${journal.intitule}"></td>
-                                            <td ><a th:href="@{/Journal/update?(id=${journal.id})}">Modifier</a></td>
-                                            <td ><a th:href="@{/Journal/delete?(id=${journal.id})}">Supprimer</a></td>
+                                            <td ><a th:href="@{'/Journal/update/'+${obj.id}+'?'(id=${journal.id})}">Modifier</a></td>
+                                            <td ><a th:href="@{'/Journal/delete/'+${obj.id}+'?'(id=${journal.id})}">Supprimer</a></td>
                                         </tr>
                                     </th:block>
                                     </tbody>

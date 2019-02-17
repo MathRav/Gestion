@@ -93,6 +93,7 @@
                                     <th>code d'allocation</th>
                                     <th>&nbsp;</th>
                                     <th>&nbsp;</th>
+                                    <th>&nbsp;</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -103,6 +104,7 @@
                                         <td th:text="${user.code}"></td>
                                         <td th:text="${user.devise}"></td>
                                         <td th:text="${user.alloccodes}"></td>
+                                        <td><a th:href="@{'/Journal/journal.html/'+${user.id}}"><button class="btn btn-outline-primary">Voir les journaux</button></a></td>
                                         <td><a th:href="@{'/Entreprise/CreationDevise/'+${user.id}}"><button class="btn btn-outline-primary">Ajouter devise</button></a></td>
                                         <td><a th:href="@{'/Entreprise/CreationExercice/'+${user.id}}"><button class="btn btn-outline-primary">Ajouter Exercice</button></a></td>
                                     </tr>
