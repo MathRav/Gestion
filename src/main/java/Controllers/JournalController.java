@@ -67,6 +67,15 @@ public class JournalController {
     public ModelAndView getExerciceMois(@PathVariable("id")String identreprise){
         ArrayList<ExerciceMois> listEM = getExerciceJournalMois(identreprise,"1");
         ModelAndView mv = new ModelAndView("exMois");
+        mv.addObject("obj",entreprise.findById(Long.valueOf(identreprise)).get());
+        mv.addObject("exMois",listEM);
+        return mv;
+    }
+    @GetMapping("/emvao/{id}/{idex}")
+    public ModelAndView getExerciceMois(@PathVariable("id")String identreprise,@PathVariable("idex")String identreprise){
+        ArrayList<ExerciceMois> listEM = getExerciceJournalMois(identreprise,idex);
+        ModelAndView mv = new ModelAndView("exMois2");
+        mv.addObject("obj",entreprise.findById(Long.valueOf(identreprise)).get());
         mv.addObject("exMois",listEM);
         return mv;
     }

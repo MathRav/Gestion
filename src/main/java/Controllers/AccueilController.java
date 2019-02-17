@@ -15,6 +15,6 @@ public class AccueilController {
 
     @GetMapping("/")
     public String getAccueil(){
-        return "index";
+        return "redirect:/Entreprise/Creation";
     }
 }

@@ -87,6 +87,7 @@ public class Entreprisecontroller {
             liste.addObject("Message","Success");
         }
         catch(Exception e){
+          e.printStackTrace();
             liste.addObject("Message",e.getMessage());
         }
         finally{
