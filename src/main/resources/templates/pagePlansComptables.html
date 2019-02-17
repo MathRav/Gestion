@@ -43,7 +43,7 @@
                                   <h3 class="text-center title-2">Ajouter compte</h3>
                               </div>
                               <hr>
-                              <form action="#" method="post" novalidate="novalidate" th:action="@{/planComptable/ajouter}" th:object="${vao}">
+                              <form action="#" method="post" novalidate="novalidate" th:action="@{'/planComptable/ajouter/'+${obj.id}}" th:object="${vao}">
                                 <input name="id" th:field="*{id}" type="hidden">
                                       <input name="idEntreprise" th:field="*{idEntreprise}" type="hidden" class="form-control" aria-required="true" aria-invalid="false" >
                                   <div class="form-group">
@@ -87,8 +87,8 @@
                                       <td th:text="${user.id}"></td>
                                       <td th:text="${user.code}"></td>
                                       <td th:text="${user.intitule}"></td>
-                                      <td ><a th:href="@{/planComptable/pageModif.html?(id=${user.id})}">Modifier</a></td>
-                                      <td ><a th:href="@{/planComptable/supprimer?(id=${user.id})}">Supprimer</a></td>
+                                      <td ><a th:href="@{'/planComptable/pageModif.html/'+${user.id}}">Modifier</a></td>
+                                      <td ><a th:href="@{'/planComptable/supprimer/'+${user.id}}">Supprimer</a></td>
                                   </tr>
                                 </th:block>
                               </tbody>

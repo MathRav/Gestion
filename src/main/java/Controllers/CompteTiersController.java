@@ -3,6 +3,7 @@ package Controllers;
 import DAO.CompteTiersRepo;
 import DAO.EntrepriseDAO;
 import DAO.comptesTiersDao;
+import DAO.planComptableDao;
 import Model.comptesTiers;
 import com.google.gson.Gson;
 import org.springframework.stereotype.Controller;
@@ -28,13 +29,15 @@ public class CompteTiersController {
     EntrepriseDAO entreprise;
     @Autowired
     CompteTiersRepo cptrepo;
-
+    @Autowired
+    planComptableDao pcd;
     @GetMapping("/page.html/{id}")
     public ModelAndView comptesTiers(@PathVariable("id")String id){
         ModelAndView md=new ModelAndView("pageCompteTiers");
         md.addObject("listeTiers",cptrepo.findByidEntreprise(Long.valueOf(id)));
         comptesTiers ct=new comptesTiers();
         ct.setIdEntreprise(Long.valueOf(id));
+        md.addObject("liste",pcd.findAll());
         md.addObject("destination","ajouter");
         md.addObject("obj",entreprise.findById(Long.valueOf(id)).get());
         ct.setIdEntreprise(Long.valueOf(id));
@@ -47,9 +50,11 @@ public class CompteTiersController {
       comptesTiers cpt=this.cptdao.findById(id).get();
       if(cpt==null) cpt=new comptesTiers();
         ModelAndView md=new ModelAndView("pageCompteTiers");
-        md.addObject("listeTiers",cptrepo.findByidEntreprise(Long.valueOf(id)));
+        md.addObject("liste",pcd.findAll());
+        md.addObject("listeTiers",cptrepo.findByidEntreprise(Long.valueOf(identreprise)));
         md.addObject("vao",cpt);
         md.addObject("destination","modifier");
+        md.addObject("obj",entreprise.findById(Long.valueOf(identreprise)).get());
         return md;
     }
     @ResponseBody
@@ -83,18 +88,18 @@ public class CompteTiersController {
       return vliste;
     }
 
-    @PostMapping("/ajouter")
+    @PostMapping("/ajouter/{id}")
       @Transactional
-    public String addComptesTiers(@ModelAttribute comptesTiers cpt ){
+    public String addComptesTiers(@ModelAttribute comptesTiers cpt,@PathVariable("id")String id){
         this.cptdao.save(cpt);
-        return "redirect:/comptesTiers/page.html";
+        return "redirect:/comptesTiers/page.html/"+id;
     }
-    @GetMapping("/supprimer")
+    @GetMapping("/supprimer/{id}")
       @Transactional
-    public String supprComptesTiers(@RequestParam("id") Long id){
+    public String supprComptesTiers(@PathVariable("id")String idx,@RequestParam("id") Long id){
       comptesTiers cpt=this.cptdao.findById(id).get();
       if(cpt!=null) this.cptdao.delete(cpt);
-      return "redirect:/comptesTiers/page.html";
+      return "redirect:/comptesTiers/page.html/"+idx;
     }
 
 }

@@ -77,17 +77,17 @@ public class Entreprisecontroller {
     }
     @Transactional
     @PostMapping("/CreerExercice/{id}")
-    public ModelAndView CreerExercice(@PathVariable("id")Long identreprise,@RequestParam("annee")int an) throws Exception{
+    public ModelAndView CreerExercice(@PathVariable("id")Long identreprise,@RequestParam("annee")String an) throws Exception{
         ModelAndView liste=new ModelAndView("Exercice");
         liste.addObject("obj",entreprise.findById(identreprise).get());
         try{
             Exercice e=new Exercice();
-            e.setAnnee(an);e.setIdentreprise(identreprise);e.setIsclotured(ExerciceDAO.notcloture);
+            e.setAnnee(Integer.valueOf(an));e.setIdentreprise(identreprise);e.setIsclotured(ExerciceDAO.notcloture);
             exercice.save(e);
             liste.addObject("Message","Success");
         }
         catch(Exception e){
-          e.printStackTrace();
+            e.printStackTrace();
             liste.addObject("Message",e.getMessage());
         }
         finally{

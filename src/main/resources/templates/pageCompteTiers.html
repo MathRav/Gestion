@@ -43,7 +43,7 @@
                                   <h3 class="text-center title-2">Ajouter compte tiers</h3>
                               </div>
                               <hr>
-                              <form action="#" method="post" novalidate="novalidate" th:action="@{/comptesTiers/ajouter}" th:object="${vao}">
+                              <form action="#" method="post" novalidate="novalidate" th:action="@{'/comptesTiers/ajouter/'+${obj.id}}" th:object="${vao}">
                                 <input name="id" th:field="*{id}" type="hidden">
                                       <input name="idEntreprise" th:field="*{idEntreprise}" type="hidden" class="form-control" aria-required="true" aria-invalid="false" >
 
@@ -61,7 +61,11 @@
                                   </div>
                                   <div class="form-group">
                                     <label for="comptecollectif" class="control-label mb-1">Compte collectif</label>
-                                      <input name="comptecollectif" type="text" class="form-control" th:field="*{comptecollectif}" >
+                                      <select name="comptecollectif" th:field="*{comptecollectif}" >
+                                          <th:block th:each="userx : ${liste}">
+                                        <option th:value="${userx.id}" th:text="${userx.intitule} " ></option>
+                                          </th:block>
+                                      </select>
                                   </div>
                                   <div>
                                       <button  type="submit" class="btn btn-lg btn-info btn-block">
@@ -100,8 +104,8 @@
                                       <td th:text="${user.intitule}"></td>
                                       <td th:text="${user.type}"></td>
                                       <td th:text="${user.comptecollectif}"></td>
-                                      <td ><a th:href="@{/comptesTiers/pageModif.html?(id=${user.id})}">Modifier</a></td>
-                                      <td ><a th:href="@{/comptesTiers/supprimer?(id=${user.id})}">Supprimer</a></td>
+                                      <td ><a th:href="@{'/comptesTiers/pageModif.html/'+${obj.id}+'?id='+${user.id}}">Modifier</a></td>
+                                      <td ><a th:href="@{'/comptesTiers/supprimer/'+${obj.id}+'?id='+${user.id}}">Supprimer</a></td>
                                   </tr>
                                 </th:block>
                               </tbody>

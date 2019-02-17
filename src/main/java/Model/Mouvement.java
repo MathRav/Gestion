@@ -21,7 +21,7 @@ import javax.persistence.Table;
 @Table(name="mvt")
 public class Mouvement implements Serializable{
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     private Long id_Journal;
