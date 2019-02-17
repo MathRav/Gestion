@@ -85,9 +85,6 @@ annee integer not null,
 isClotured boolean,PRIMARY KEY(id),
 FOREIGN KEY (identreprise) REFERENCES entreprise(id)
 );
-<<<<<<< HEAD
-alter table exercice add constraint unique(identreprise,annee);
-=======
 
 insert into mvt values(1,1,'2019-02-13','FA0001','1','','FACTURE CLIENT 1',null,100000,0,1,1,1,1);
 insert into mvt values(2,1,'2019-02-13','FA0001','1','','FACTURE CLIENT 1',null,0,100000,1,1,1,1);
@@ -133,4 +130,3 @@ SELECT idcompte,numcompte, SUM(debit) as debit,SUM(credit) as credit,SUM(debit)-
 
 
 insert into exercice values(1,1,2019,false);
->>>>>>> 4ece4963688e0d87915a587006fa7835cc37ee3d
