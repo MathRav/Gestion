@@ -28,7 +28,18 @@ public class GlController {
         List<mvtotal> liste=this.mvtdao.findAllZavatra(new Integer(mois),new Long(idExercice));
         mv.addObject("listetri",getListeTri(liste));
         mv.addObject("soldeCum",new Integer(0));
+        mv.addObject("totalist",totaliser(liste));
         return mv;
+    }
+
+    public double[] totaliser(List<mvtotal> liste){
+      double[] retour=new double[3];
+      for(mvtotal ray: liste){
+          retour[0]+=ray.getDebit();
+          retour[1]+=ray.getCredit();
+          retour[2]+=retour[0]-retour[1];
+      }
+      return retour;
     }
 
     public ArrayList<ArrayList<mvtotalExt>> getListeTri(List<mvtotal> liste){
